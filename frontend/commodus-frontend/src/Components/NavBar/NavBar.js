@@ -29,7 +29,7 @@ function NavBar(props) {
   );
 }
 
-NavBar  .propTypes = {
+NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
