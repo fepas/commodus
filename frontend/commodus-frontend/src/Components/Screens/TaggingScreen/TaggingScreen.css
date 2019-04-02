@@ -32,6 +32,10 @@
 .Selector Button {
     margin: 10px;
 }
+
+.Teste {
+    background-color: red;
+}
 /* if (this.state.CurrentIndex == this.state.NumberOfQuestions) {
     const CurrentIndex = this.state.CurrentIndex
     const isPopupOpen = true;

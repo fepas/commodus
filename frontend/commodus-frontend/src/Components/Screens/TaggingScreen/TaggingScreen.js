@@ -24,7 +24,7 @@ class TaggingScreen extends Component {
         question : "Olá",
         questionText : "O céu é azul?",
         CurrentIndex: 0,
-        CurrentQuestionId : 0,
+        CurrentQuestionId : undefined,
         NumberOfQuestions: 0,
         isPopupOpen: false,
         answers:[]
@@ -51,7 +51,7 @@ class TaggingScreen extends Component {
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
             const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
+                question_id: this.state.questions[CurrentIndex].id,
                 answer: 'Regular',
             } 
             const answers = [...this.state.answers, answer]
@@ -74,7 +74,7 @@ class TaggingScreen extends Component {
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
+            this.setState({ isPopupOpen, answers});
         }
         
     }
@@ -88,7 +88,7 @@ class TaggingScreen extends Component {
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
             const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
+                question_id: this.state.questions[CurrentIndex].id,
                 answer: 'Irregular',
             } 
             const answers = [...this.state.answers, answer]
@@ -110,7 +110,7 @@ class TaggingScreen extends Component {
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
+            this.setState({ isPopupOpen, answers});
         }
     }
 
@@ -123,7 +123,7 @@ class TaggingScreen extends Component {
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
             const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
+                question_id: this.state.questions[CurrentIndex].id,
                 answer: 'Inconclusive',
             } 
             const answers = [...this.state.answers, answer]
@@ -145,7 +145,7 @@ class TaggingScreen extends Component {
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
+            this.setState({ isPopupOpen, answers});
         }
     }
     
@@ -176,10 +176,153 @@ class TaggingScreen extends Component {
     }
     render () {
 
+        let currentAnswer = 'Não respondido'
 
+        const answersArray = this.state.answers
+        console.log(answersArray);
 
+        answersArray.map( (item) => {
+            if(item.question_id === this.state.CurrentQuestionId){
+                currentAnswer = item.answer
+            }
+        })
+        
         let buttonBackward;
         let buttonFoward;
+
+        let options;
+
+        if (currentAnswer === 'Regular') {
+            options = (
+                <div className="Options">                
+                    <Button 
+                    size="large" 
+                    variant="contained" 
+                    color="primary" 
+                    className="Button-Option"
+                    onClick={this.handleRegularClick}>
+                        Regular
+                    </Button>
+
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="secondary" 
+                    className="Button-Option"
+                    onClick={this.handleIrregularClick}>
+                        Irregular
+                    </Button>
+                    
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="default" 
+                    className="Button-Option"
+                    onClick={this.handleInconclusiveClick}>
+                        Inconclusivo
+                    </Button>
+                </div>
+            )
+        }
+
+        if (currentAnswer === 'Inconclusive') {
+            options = (
+                <div className="Options">                
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="primary" 
+                    className="Button-Option"
+                    onClick={this.handleRegularClick}>
+                        Regular
+                    </Button>
+
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="secondary" 
+                    className="Button-Option"
+                    onClick={this.handleIrregularClick}>
+                        Irregular
+                    </Button>
+                    
+                    <Button 
+                    size="large" 
+                    variant="contained" 
+                    color="default" 
+                    className="Button-Option"
+                    onClick={this.handleInconclusiveClick}>
+                        Inconclusivo
+                    </Button>
+                </div>
+            )
+        }
+
+        if (currentAnswer === 'Irregular') {
+            options = (
+                <div className="Options">                
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="primary" 
+                    className="Button-Option"
+                    onClick={this.handleRegularClick}>
+                        Regular
+                    </Button>
+
+                    <Button 
+                    size="large" 
+                    variant="contained" 
+                    color="secondary" 
+                    className="Button-Option"
+                    onClick={this.handleIrregularClick}>
+                        Irregular
+                    </Button>
+                    
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="default" 
+                    className="Button-Option"
+                    onClick={this.handleInconclusiveClick}>
+                        Inconclusivo
+                    </Button>
+                </div>
+            )
+        }
+
+        if (currentAnswer === 'Não respondido') {
+            options = (
+                <div className="Options">                
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="primary" 
+                    className="Button-Option"
+                    onClick={this.handleRegularClick}>
+                        Regular
+                    </Button>
+
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="secondary" 
+                    className="Button-Option"
+                    onClick={this.handleIrregularClick}>
+                        Irregular
+                    </Button>
+                    
+                    <Button 
+                    size="large" 
+                    variant="outlined" 
+                    color="default" 
+                    className="Button-Option"
+                    onClick={this.handleInconclusiveClick}>
+                        Inconclusivo
+                    </Button>
+                </div>
+            )
+        }
 
         if( this.state.CurrentIndex === 0){
             buttonBackward = (
@@ -236,34 +379,11 @@ class TaggingScreen extends Component {
                 </CardContent>
             </Card>
 
-            <div className="Options">
-                <Button 
-                size="large" 
-                variant="contained" 
-                color="primary" 
-                className="Button-Option"
-                onClick={this.handleRegularClick}>
-                    Regular
-                </Button>
+            {options}
 
-                <Button 
-                size="large" 
-                variant="contained" 
-                color="secondary" 
-                className="Button-Option"
-                onClick={this.handleIrregularClick}>
-                    Irregular
-                </Button>
-
-                <Button 
-                size="large" 
-                variant="contained" 
-                color="default" 
-                className="Button-Option"
-                onClick={this.handleInconclusiveClick}>
-                    Inconclusivo
-                </Button>
-            </div>
+            <Typography variant="h6">   
+                Resposta Atual: {currentAnswer}
+            </Typography>
 
             <div className="Selector">
 
