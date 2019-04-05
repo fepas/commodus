@@ -16,9 +16,12 @@ const InitialScreen = (props) => {
             </Typography>
             <br />
             <Typography variant="h6" color="textSecondary">
-                Para começar a taggear as informações sobre {props.children}, clique no botão abaixo.
+                Para começar a taggear as informações sobre {props.children}, informe seu usuário e clique no botão abaixo.
             </Typography>
             <br />
+
+            
+
             <br />
             <Button component={Link} to="/tag" size="large" variant="contained" color="primary">
                 Começar!

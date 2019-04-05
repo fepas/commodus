@@ -12,6 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -27,13 +28,15 @@ class TaggingScreen extends Component {
         CurrentQuestionId : undefined,
         NumberOfQuestions: 0,
         isPopupOpen: false,
-        answers:[]
+        answers:[],
+        answeredQuestions: [],
+        isCommentOpen: false,
+        Comment: '',
     }
 
     componentDidMount() {
         axios.get('http://localhost:3000/movies')
-        .then(res => {
-          console.log('rodou');  
+        .then(res => { 
           const questions = res.data;
           const NumberOfQuestions = res.data.length
           const question = res.data[0].question;
@@ -44,12 +47,13 @@ class TaggingScreen extends Component {
     }
     handleRegularClick = () => {
 
-        if (this.state.CurrentIndex === this.state.NumberOfQuestions - 1) {
+
             const CurrentIndex = this.state.CurrentIndex
-            const isPopupOpen = true;
+            console.log('current index', CurrentIndex)
             const question = this.state.questions[CurrentIndex].question;
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
+            const answeredQuestions = [...this.state.answeredQuestions, CurrentQuestionId]
             const answer = {
                 question_id: this.state.questions[CurrentIndex].id,
                 answer: 'Regular',
@@ -58,35 +62,18 @@ class TaggingScreen extends Component {
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
+            this.setState({answers, answeredQuestions});
 
-        } else {
-            const CurrentIndex = this.state.CurrentIndex + 1
-            const isPopupOpen = false;
-            const question = this.state.questions[CurrentIndex].question;
-            const CurrentQuestionId = this.state.questions[CurrentIndex].id
-            const questionText = this.state.questions[CurrentIndex].affirmations;
-            const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
-                answer: 'Regular',
-            } 
-            const answers = [...this.state.answers, answer]
-            axios.post('http://localhost:3000/answers', {
-                answers
-            })
-            this.setState({ isPopupOpen, answers});
-        }
-        
-    }
+    }  
 
     handleIrregularClick = () => {
 
-        if (this.state.CurrentIndex === this.state.NumberOfQuestions - 1) {
             const CurrentIndex = this.state.CurrentIndex
-            const isPopupOpen = true;
+            console.log('current index', CurrentIndex)
             const question = this.state.questions[CurrentIndex].question;
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
+            const answeredQuestions = [...this.state.answeredQuestions, CurrentQuestionId]
             const answer = {
                 question_id: this.state.questions[CurrentIndex].id,
                 answer: 'Irregular',
@@ -95,58 +82,26 @@ class TaggingScreen extends Component {
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
-        } else {
-            const CurrentIndex = this.state.CurrentIndex + 1
-            const isPopupOpen = false;
-            const question = this.state.questions[CurrentIndex].question;
-            const CurrentQuestionId = this.state.questions[CurrentIndex].id
-            const questionText = this.state.questions[CurrentIndex].affirmations;
-            const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
-                answer: 'Irregular',
-            } 
-            const answers = [...this.state.answers, answer]
-            axios.post('http://localhost:3000/answers', {
-                answers
-            })
-            this.setState({ isPopupOpen, answers});
-        }
+            this.setState({ answers, answeredQuestions});
+            
     }
 
     handleInconclusiveClick = () => {
-
-        if (this.state.CurrentIndex === this.state.NumberOfQuestions - 1) {
-            const CurrentIndex = this.state.CurrentIndex
-            const isPopupOpen = true;
+            const CurrentIndex = this.state.CurrentIndex 
+            console.log('current index', CurrentIndex)
             const question = this.state.questions[CurrentIndex].question;
             const CurrentQuestionId = this.state.questions[CurrentIndex].id
             const questionText = this.state.questions[CurrentIndex].affirmations;
+            const answeredQuestions = [...this.state.answeredQuestions, CurrentQuestionId]
             const answer = {
                 question_id: this.state.questions[CurrentIndex].id,
-                answer: 'Inconclusive',
+                answer: 'Inconclusivo',
             } 
             const answers = [...this.state.answers, answer]
             axios.post('http://localhost:3000/answers', {
                 answers
             })
-            this.setState({CurrentIndex, question, questionText, CurrentQuestionId, isPopupOpen, answers});
-        } else {
-            const CurrentIndex = this.state.CurrentIndex + 1
-            const isPopupOpen = false;
-            const question = this.state.questions[CurrentIndex].question;
-            const CurrentQuestionId = this.state.questions[CurrentIndex].id
-            const questionText = this.state.questions[CurrentIndex].affirmations;
-            const answer = {
-                question_id: this.state.questions[CurrentIndex - 1].id,
-                answer: 'Inconclusive',
-            } 
-            const answers = [...this.state.answers, answer]
-            axios.post('http://localhost:3000/answers', {
-                answers
-            })
-            this.setState({ isPopupOpen, answers});
-        }
+            this.setState({ answers, answeredQuestions});
     }
     
     handleFowardClick = () => {
@@ -174,12 +129,41 @@ class TaggingScreen extends Component {
         this.setState({ isPopupOpen: false });
         
     }
+
+    stayComment = () => {
+        this.setState({ isCommentOpen: false}); 
+    }
+
+    end = () => {
+        this.setState({ isPopupOpen: true });
+    }
+
+    addComment = () => {
+        this.setState({ isCommentOpen: true });
+    }
+
+    handleChange(event) {
+        this.setState({ Comment: event.target.value });
+    }
+
+    setComment = () => {
+        const comment = {
+            question_id: this.state.questions[this.state.CurrentIndex].id,
+            comment: this.state.Comment
+        }
+        axios.post('http://localhost:3000/comments', {
+            comment
+        })
+
+        this.setState({isCommentOpen: false, Comment: ''})
+    }
+
     render () {
 
         let currentAnswer = 'Não respondido'
 
         const answersArray = this.state.answers
-        console.log(answersArray);
+
 
         answersArray.map( (item) => {
             if(item.question_id === this.state.CurrentQuestionId){
@@ -189,8 +173,48 @@ class TaggingScreen extends Component {
         
         let buttonBackward;
         let buttonFoward;
-
         let options;
+        let finalButton;
+
+        let isFinished = false
+
+
+        let answeredQuestionsArray = this.state.answeredQuestions.slice()
+
+        let answeredArray = [...new Set(answeredQuestionsArray)]
+
+        if (answeredArray.length === this.state.questions.length) {
+            isFinished = true
+        }
+
+        if (isFinished) {
+            finalButton = (
+                <Button 
+                size="large" 
+                variant="contained" 
+                color="primary" 
+                className="Button-Option"
+                onClick={this.end}
+                >
+                    Finalizar
+                </Button>
+            )
+        }
+
+        if (!isFinished) {
+            finalButton = (
+                <Button
+                disabled
+                size="large" 
+                variant="contained" 
+                color="primary" 
+                className="Button-Option"
+                onClick={this.end}>
+                    Finalizar
+                </Button>
+            )
+        }
+
 
         if (currentAnswer === 'Regular') {
             options = (
@@ -225,7 +249,7 @@ class TaggingScreen extends Component {
             )
         }
 
-        if (currentAnswer === 'Inconclusive') {
+        if (currentAnswer === 'Inconclusivo') {
             options = (
                 <div className="Options">                
                     <Button 
@@ -361,6 +385,8 @@ class TaggingScreen extends Component {
         }
             
         return(
+
+        
         
         <div className="Tagging-Screen">
             <NavBar />
@@ -381,7 +407,7 @@ class TaggingScreen extends Component {
 
             {options}
 
-            <Typography variant="h6">   
+            <Typography variant="h7">   
                 Resposta Atual: {currentAnswer}
             </Typography>
 
@@ -391,11 +417,23 @@ class TaggingScreen extends Component {
             {buttonFoward}    
 
             </div>
+            <div className="Final">
+                <Button 
+                size="large" 
+                variant="outlined" 
+                color="primary" 
+                className="Button-Option"
+                onClick={this.addComment}
+                >
+                    Adicionar Comentário
+                </Button> 
 
+                {finalButton}               
+            </div>
             <Typography variant="h6">
                     {this.state.CurrentIndex+1}/{this.state.NumberOfQuestions}
             </Typography>
-
+            
             <Dialog
             open={this.state.isPopupOpen}
             onClose={this.stay}
@@ -414,6 +452,39 @@ class TaggingScreen extends Component {
                     </Button>
                     <Button component={Link} to="/end" color="primary" autoFocus>
                         Não, continuar
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+
+            <Dialog className="Dialog"
+            open={this.state.isCommentOpen}
+            onClose={this.stayComment}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth
+            maxWidth="sm"
+            >
+                <DialogContent>
+                    <TextField
+                        fullWidth
+                        id="outlined-multiline-flexible"
+                        label="Insira seu comentário"
+                        multiline
+                        rows="4"
+                        value={this.state.Comment}
+                        onChange={this.handleChange.bind(this)}
+                        className="Text-Field"
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button color="secondary" onClick={this.stayComment} >
+                        Cancelar
+                    </Button>
+                    <Button color="primary" onClick={this.setComment}>
+                        Comentar
                     </Button>
                 </DialogActions>
             </Dialog>

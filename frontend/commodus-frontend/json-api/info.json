@@ -22,6 +22,103 @@
     }
   ],
   "answers": [
-    
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        },
+        {
+          "question_id": 2,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "comment": {
+        "question_id": 1,
+        "comment": ""
+      },
+      "id": 1
+    },
+    {
+      "comment": {
+        "question_id": 1,
+        "comment": ""
+      },
+      "id": 2
+    }
   ]
 }
