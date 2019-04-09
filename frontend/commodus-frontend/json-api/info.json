@@ -1,0 +1,124 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "question": "As seguintes sentenças se referem ao filme Toy Story?",
+      "affirmations": " É conhecido por ser o primeiro filme da história do cinema a ter sido feito totalmente por computação gráfica, o precursor dentre os longas-metragens da Pixar e a primeira produção realizada por meio da parceria entre a companhia e a Walt Disney Pictures. O roteiro foi escrito por Joss Whedon, Andrew Stanton, Joel Cohen e Alec Sokolow a partir de uma história criada por Lasseter, Pete Docter, Stanton e Joe Ranft. A película apresenta música de Randy Newman e foi produzida por Steve Jobs e Edwin Catmull."
+    },
+    {
+      "id": 2,
+      "question": "As seguintes sentenças se referem ao filme Liga da Justiça?",
+      "affirmations": " São um grupo de super-heróis de história em quadrinhos publicados nos Estados Unidos pela editora Marvel Comics. O grupo também aparece em adaptações da Marvel para cinema, desenho animado e videogames. A  equipe tradicionalmente é a primeira a ser chamada pelo governo dos EUA quando defrontado por desafios de ordem cósmica, e tem bases em Nova York e uma ilha na costa americana."
+    },
+    {
+      "id": 3,
+      "question": "As seguintes sentenças se referem ao filme Avatar?",
+      "affirmations": "O filme de James Cameron tornou-se um fenômeno de bilheteria em sua época de lançamento. Foi indicado a 14 Oscars, vencendo 11 prêmios, incluindo Melhor Filme e Melhor Diretor. Com uma bilheteria total de US$ 2,1 bilhões, foi o primeiro filme a arrecadar mais de US$ 1 bilhão mundialmente"
+    },
+    {
+      "id": 4,
+      "question": "As seguintes sentenças se referem ao filme Capitão América: Guerra Civil?",
+      "affirmations": "Estreou em Nova York em 1 de agosto de 2016 e foi lançado nos cinemas em 04 de agosto de 2016 em 2D, 3D e IMAX 3D. Após uma forte estreia que alcançou novos recordes de bilheteria, o filme arrecadou mais de US$ 746.8 milhões no mundo todo, tornando-se a décima maior bilheteria de 2016. O filme foi nomeado e ganhou vários prêmios em várias categorias, incluindo cabelo e maquiagem e música."
+    }
+  ],
+  "answers": [
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Inconclusivo"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        },
+        {
+          "question_id": 1,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "answers": [
+        {
+          "question_id": 1,
+          "answer": "Regular"
+        },
+        {
+          "question_id": 2,
+          "answer": "Irregular"
+        }
+      ],
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "comment": {
+        "question_id": 1,
+        "comment": ""
+      },
+      "id": 1
+    },
+    {
+      "comment": {
+        "question_id": 1,
+        "comment": ""
+      },
+      "id": 2
+    }
+  ]
+}
