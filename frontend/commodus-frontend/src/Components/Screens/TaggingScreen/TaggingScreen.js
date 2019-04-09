@@ -32,6 +32,7 @@ class TaggingScreen extends Component {
         answeredQuestions: [],
         isCommentOpen: false,
         Comment: '',
+        isUserOpen: true
     }
 
     componentDidMount() {
@@ -488,6 +489,9 @@ class TaggingScreen extends Component {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+
+            
             
 
         </div>            
